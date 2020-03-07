@@ -8,6 +8,23 @@ class Monomial {
         setPower(power);
     }
 
+    public String toString(){
+        StringBuilder monom = new StringBuilder();
+        if(coefficient != 1 && coefficient != -1)
+            monom.append(coefficient);
+        if(power == 1 && coefficient > 0)
+            monom.append("x");
+        else if(power == 1 && coefficient < 0)
+            monom.append("-x");
+        else if(power == 0 && coefficient == 1)
+            return String.valueOf(1);
+        else if(power == 0 && coefficient == -1)
+            return String.valueOf(-1);
+        else if(power != 0 && power != 1)
+                monom.append("x^").append(power);
+        return String.valueOf(monom);
+    }
+
     public int getCoefficient(){
         return this.coefficient;
     }

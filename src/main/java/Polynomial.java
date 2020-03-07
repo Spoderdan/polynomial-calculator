@@ -5,7 +5,7 @@ import java.util.regex.Pattern;
 
 public class Polynomial {
 
-    private List<Monomial> monomialList = new ArrayList<Monomial>();
+    private List<Monomial> monomialList = new ArrayList<>();
     private int numberOfMonomials = 0;
 
     public Polynomial(){
@@ -14,6 +14,11 @@ public class Polynomial {
 
     public Polynomial(String polynomial){
         findMonomials(polynomial);
+    }
+
+    public Polynomial(List<Monomial> monomials){
+        this.monomialList = monomials;
+        numberOfMonomials = monomials.size();
     }
 
     /**
@@ -49,37 +54,43 @@ public class Polynomial {
         while (i < numberOfMonomials){
             coefficient = Integer.toString(monomialList.get(i).getCoefficient());
             power = Integer.toString(monomialList.get(i).getPower());
+
             if(coefficient.charAt(0) != '-' && i != 0)
                 polynomial.append("+");
-            if(monomialList.get(i).getPower() == 1)
-                polynomial.append(coefficient).append("x");
-            else if(monomialList.get(i).getPower() == 0)
+            if(!coefficient.equals("1") && !coefficient.equals("-1"))
                 polynomial.append(coefficient);
-            else
-                polynomial.append(coefficient).append("x^").append(power);
+            if(power.equals("1") && Integer.parseInt(coefficient) > 0)
+                polynomial.append("x");
+            else if(power.equals("1") && Integer.parseInt(coefficient) < 0)
+                polynomial.append("-x");
+            else if(power.equals("0") && coefficient.equals("1"))
+                polynomial.append("1");
+            else if(power.equals("0") && coefficient.equals("-1"))
+                polynomial.append("-1");
+            else if(!power.equals("0") && !power.equals("1"))
+                polynomial.append("x^").append(power);
             i++;
         }
         return String.valueOf(polynomial);
     }
 
-    /**
-     * Returns a list of the powers of the polynomial
-     * @return list of integers
-     */
-    public List<Integer> getPowerlist(){
-        List<Integer> powerList = new ArrayList<Integer>();
-        for (Monomial m: monomialList)
-            powerList.add(m.getPower());
-        return powerList;
+    public List<Monomial> getMonomialList(){
+        return monomialList;
     }
 
     /**
      * Returns the monomial at the desired position
      * @param i index of desired monomial
-     * @return monomial
+     * @return
      */
     public Monomial getMonomial(int i){
-        return monomialList.get(i);
+        Monomial m;
+        try{
+            m = monomialList.get(i);
+        }catch (IndexOutOfBoundsException e){
+            return new Monomial(0, 0);
+        }
+        return m;
     }
 
     /**
@@ -90,12 +101,9 @@ public class Polynomial {
         return this.numberOfMonomials;
     }
 
-    /**
-     * Returns the maximum power of the polynomial
-     * @return integer
-     */
-    public int getMaxPower(){
-        return monomialList.get(0).getPower();
+    public void clearList(){
+        monomialList.clear();
+        numberOfMonomials = 0;
     }
 
     /*public static void main(String[] args){
