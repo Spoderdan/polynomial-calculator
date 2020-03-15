@@ -49,11 +49,7 @@ public class View extends javax.swing.JFrame {
         textPoly1.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         textPoly1.setText("First Polynomial");
         textPoly1.setToolTipText("");
-        textPoly1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                textPoly1ActionPerformed(evt);
-            }
-        });
+
 
         labelPoly1.setLabelFor(textPoly1);
         labelPoly1.setText("POLYNOMIAL 1");
@@ -63,11 +59,6 @@ public class View extends javax.swing.JFrame {
 
         textPoly2.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         textPoly2.setText("Second Polynomial");
-        textPoly2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                textPoly2ActionPerformed(evt);
-            }
-        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -134,9 +125,9 @@ public class View extends javax.swing.JFrame {
 
         buttonDiv.setText("DIVIDE");
 
-        buttonDeriv.setText("DERIVATIVE");
+        buttonDeriv.setText("DERIVATE");
 
-        buttonInteg.setText("INTEGRAL");
+        buttonInteg.setText("INTEGRATE");
 
         jTextPane1.setEditable(false);
         jScrollPane1.setViewportView(jTextPane1);
@@ -198,14 +189,6 @@ public class View extends javax.swing.JFrame {
         pack();
     }
 
-    private void textPoly1ActionPerformed(java.awt.event.ActionEvent evt) {
-        // TODO add your handling code here:
-    }
-
-    private void textPoly2ActionPerformed(java.awt.event.ActionEvent evt) {
-        // TODO add your handling code here:
-    }
-
     private void labelHelpMouseEntered(java.awt.event.MouseEvent evt) {
         JOptionPane.showMessageDialog(rootPane, "All monomials are written like this: ax^pow\n" +
                 "You have to use the following conventions:\n" +
@@ -222,6 +205,8 @@ public class View extends javax.swing.JFrame {
         JOptionPane.showMessageDialog(this, errMessage);
     }
 
+//  Getters for the input polynomials ==================================================================================
+
     public String getUserInput1(){
         return textPoly1.getText();
     }
@@ -229,6 +214,8 @@ public class View extends javax.swing.JFrame {
     public String getUserInput2(){
         return textPoly2.getText();
     }
+
+//  Operation Listeners ================================================================================================
 
     public void addAdditionListener(ActionListener al){
         buttonAdd.addActionListener(al);
@@ -238,11 +225,20 @@ public class View extends javax.swing.JFrame {
         buttonSub.addActionListener(al);
     }
 
-    public static void main(String args[]) {
-        Model model = new Model();
-        View view = new View();
-        Controller controller = new Controller(model, view);
-        view.setVisible(true);
+    public void addMultiplicationListener(ActionListener al){
+        buttonMultiply.addActionListener(al);
+    }
+
+    public void addDivisionListener(ActionListener al){
+        buttonDiv.addActionListener(al);
+    }
+
+    public void addDerivationListener(ActionListener al){
+        buttonDeriv.addActionListener(al);
+    }
+
+    public void addIntegrationListener(ActionListener al){
+        buttonInteg.addActionListener(al);
     }
 
 }
