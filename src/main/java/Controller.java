@@ -110,8 +110,7 @@ public class Controller {
             try {
                 poly1 = view.getUserInput1();
                 model.setPolynomial1(poly1);
-                model.integrate();
-                view.showResult(model.getResult());
+                view.showResult(model.integrate());
             } catch (NumberFormatException nfex) {
                 view.showError("Bad input: '" + poly1 + "'");
             }

@@ -134,7 +134,7 @@ public class Model {
         result = new Polynomial(monomialList);
     }
 
-    public void integrate(){
+    public String integrate(){
 
         List<Monomial> monomialList = polynomial1.getMonomialList();
         StringBuilder result = new StringBuilder();
@@ -144,11 +144,13 @@ public class Model {
                 result.append("+");
             if(m.getCoefficient() != 1 && m.getCoefficient() != -1)
                 result.append(m.getCoefficient()).append("*1/");
-            else
+            else if(m.getCoefficient() == 1)
                 result.append("1/");
+            else
+                result.append("-1/");
             result.append(m.getPower()+1).append("x^").append(m.getPower()+1);
         }
-        this.result = new Polynomial(String.valueOf(result));
+        return String.valueOf(result);
     }
 
 //  Setters and Getters for the instance variables =====================================================================
@@ -159,6 +161,10 @@ public class Model {
 
     public void setPolynomial1(Monomial monomial){
         this.polynomial1 = new Polynomial(monomial);
+    }
+
+    public void setPolynomial1(Polynomial polynomial){
+        this.polynomial1 = polynomial;
     }
 
     public void setPolynomial2(String poly){
@@ -175,6 +181,12 @@ public class Model {
 
     public String getRest() {
         return this.rest.toString();
+    }
+
+    public static void main (String[] args){
+        Model m = new Model();
+        m.setPolynomial1("-3x^2-1x^1+1x^0");
+        System.out.print(m.integrate());
     }
 
 }
